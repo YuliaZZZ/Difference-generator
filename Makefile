@@ -1,12 +1,8 @@
-help:
-	poetry run gendiff -h
+install:
+        @poetry install
 
 lint:
 	@poetry run flake8 gen_diff
-
-
-install:
-	@poetry install
 
 
 
