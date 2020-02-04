@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from gen_diff import help
+from gen_diff import diff_plain
 
 
 def main():
-    help
+    diff_plain
 
 
 if __name__ == '__main__':
