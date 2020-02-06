@@ -1,24 +1,33 @@
 import json
 
 
-def st(a, b):
-    return ' {}: {}\n'.format(a, b)
+STATUS = {'deleted': '- ', 'removed': '+ '}
+
+
+def string(a, b, z='  '):
+    return '{} {}: {}\n'.format(z, a, b)
+
+
+def difs(d, k, v):
+    if k in d:
+        if d[k] == v:
+            return string(k, v)
+        else:
+            st = string(k, v, STATUS['deleted'])
+            st = st + string(k, d[k], STATUS['removed'])
+            return st
+    else:
+        return string(k, v, STATUS['deleted'])
 
 
 def generate_diff(file1, file2):
     f1 = json.load(open(file1))
     f2 = json.load(open(file2))
-    new = f1.copy()
-    new.update(f2)
-    diff = '{\n'
-    for i in new:
-        if i not in f2:
-            diff += '-' + st(i, new.get(i))
-        if f1.get(i) == f2.get(i):
-            diff += ' ' + st(i, new.get(i))
-        if i in f1 and f1.get(i) != new.get(i):
-            diff += '-' + st(i, f1.get(i)) + '+' + st(i, new.get(i))
-        if i not in f1:
-            diff += '+' + st(i, new.get(i))
-    diff = diff + '}'
+    diff = ''
+    for k, v in f1.items():
+        diff += difs(f2, k, v)
+    for k1, v1 in f2.items():
+        if k1 not in f1:
+            diff += string(k1, v1, STATUS['removed'])
+    diff = diff.join(['{\n', '}'])
     return diff
