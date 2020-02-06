@@ -1,7 +1,7 @@
 import json
 
 
-STATUS = {'deleted': '- ', 'removed': '+ '}
+STATUS = {'deleted': '- ', 'added': '+ '}
 
 
 def string(a, b, z='  '):
@@ -14,7 +14,7 @@ def difs(d, k, v):
             return string(k, v)
         else:
             st = string(k, v, STATUS['deleted'])
-            st = st + string(k, d[k], STATUS['removed'])
+            st = st + string(k, d[k], STATUS['added'])
             return st
     else:
         return string(k, v, STATUS['deleted'])
@@ -28,6 +28,6 @@ def generate_diff(file1, file2):
         diff += difs(f2, k, v)
     for k1, v1 in f2.items():
         if k1 not in f1:
-            diff += string(k1, v1, STATUS['removed'])
+            diff += string(k1, v1, STATUS['added'])
     diff = diff.join(['{\n', '}'])
     return diff
