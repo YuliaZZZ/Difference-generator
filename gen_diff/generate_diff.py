@@ -20,7 +20,7 @@ def difs(d, k, v):
         return string(k, v, STATUS['deleted'])
 
 
-def generate_diff(file1, file2):
+def engine(file1, file2):
     f1 = json.load(open(file1))
     f2 = json.load(open(file2))
     diff = ''
@@ -29,5 +29,5 @@ def generate_diff(file1, file2):
     for k1, v1 in f2.items():
         if k1 not in f1:
             diff += string(k1, v1, STATUS['added'])
-    diff = diff.join(['{\n', '}'])
+    diff = diff.join(['{\n', '}\n'])
     return diff

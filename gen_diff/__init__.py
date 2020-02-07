@@ -1,4 +1,4 @@
-from gen_diff import diff_plain, generate_diff   # noqa F401
+from gen_diff import generate_diff   # noqa F401
 
 
-__all__ = ('diff_plain', 'generate_diff')
+__all__ = ('generate_diff')

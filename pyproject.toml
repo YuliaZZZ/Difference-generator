@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "YuliaZZZ_Difference_generator"
-version = "0.2.0"
+version = "0.3.0"
 description = ""
 authors = ["Zula <zinowiewa@yandex.ru>"]
 packages = [
@@ -12,6 +12,8 @@ python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
+pytest = "^5.3.5"
+pytest-cov = "^2.8.1"
 
 [tool.poetry.scripts]
   gendiff = "gen_diff.scripts.gendiff:main"
