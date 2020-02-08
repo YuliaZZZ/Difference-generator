@@ -11,6 +11,7 @@ install: make
 
 before_install:
   - pip install poetry
+  - pip install coverage
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -21,5 +22,4 @@ script:
   - make test
 
 after_script:
-  - ./cc-test-reporter format-coverage
-  - ./cc-test-reporter upload-coverage --endpoint URL 
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT 
