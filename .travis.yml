@@ -18,7 +18,6 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - make check
   - make test
 
 after_script:
