@@ -29,5 +29,7 @@ def engine(file1, file2):
     for k1, v1 in f2.items():
         if k1 not in f1:
             diff += string(k1, v1, STATUS['added'])
+    if len(diff) == 0:
+        diff = "There's no difference.\n"
     diff = diff.join(['{\n', '}\n'])
     return diff
