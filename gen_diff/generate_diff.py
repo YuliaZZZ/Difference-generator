@@ -1,4 +1,5 @@
 import json
+from gen_diff.parsers import parser
 
 
 STATUS = {'deleted': '- ', 'added': '+ '}
@@ -21,8 +22,8 @@ def difs(d, k, v):
 
 
 def engine(file1, file2):
-    f1 = json.load(open(file1))
-    f2 = json.load(open(file2))
+    f1 = parser(file1)(open(file1))
+    f2 = parser(file2)(open(file2))
     diff = ''
     for k, v in f1.items():
         diff += difs(f2, k, v)
