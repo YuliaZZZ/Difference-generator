@@ -1,14 +1,14 @@
 import json
 from os.path import split, splitext
+import yaml
 
 
 def parser(file):
-    root, name = split(file)
-    format = splitext(name)
-    first_name, last_name = format
-    parse = json.load
-    if last_name == '.json':
+    root, name_file = split(file)
+    first_name, format = splitext(name_file)
+    parse = json.load(open(file))
+    if format == '.json':
         return parse
-    elif last_name == '.yml':
-        parse = yaml.safeLoad
+    elif format == '.yml':
+        parse = yaml.safe_load(open(file))
         return parse
