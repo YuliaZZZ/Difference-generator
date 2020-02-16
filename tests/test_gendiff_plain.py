@@ -9,6 +9,6 @@ answer = file.read()
 
 
 def test_answer():
-    assert answer == generate_diff.engine('./tests/fixtures/before.json', './tests/fixtures/after.json')
+    assert answer == generate_diff.engine('./tests/fixtures/before.json', './tests/fixtures/after.json') + '\n'
     assert yaml.safe_load(open('./tests/fixtures/before.yml')) == parsers.parser('./tests/fixtures/before.yml')
     assert type(generate_diff.engine('./tests/fixtures/before.yml', './tests/fixtures/after.yml')) is str

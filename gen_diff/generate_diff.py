@@ -1,38 +1,71 @@
 from gen_diff.parsers import parser
+from textwrap import indent
 
 
-def diff_to_string(f):
+status = {'no_change': "  ", 'delete': "- ", "added": "+ "}
+
+
+def to_string(items):
     diff = ''
-    for i in f:
-        diff += ' {}: {}\n'.format(i, f[i])
-    diff = diff.join(['{\n', '}\n'])
+    for key, value in items.items():
+        if type(key) is not tuple:
+            diff += '   {}: {}\n'.format(key, value)
+        else:
+            operator, parameter = key
+            diff += '{} {}: {}\n'.format(operator, parameter, value)
+    diff = diff.join(['{\n', '}'])
     return diff
 
 
-def difs(f, k, v):
+def is_child(f1, f2):
+    return type(f1) is dict and type(f2) is dict
+
+
+def to_diff(f2, k, v):
     diff = {}
-    if k in f:
-        if v == f[k]:
-            diff["  " + k] = v
-        else:
-            diff['- ' + k] = v
-            diff['+ ' + k] = f[k]
+    if k in f2 and f2[k] != v:
+        diff[(status['delete'], k)] = v
+        diff[(status['added'], k)] = f2[k]
     else:
-        diff['- ' + k] = v
+        diff[(status['delete'], k)] = v
     return diff
 
 
 def differ(f1, f2):
     diff = {}
-    for k, v in f1.items():
-        diff.update(difs(f2, k, v))
-    for k1, v1 in f2.items():
-        if k1 not in f1:
-            diff.update({'+ ' + k1: v1})
+    for i in f1:
+        if i in f2:
+            if f1[i] == f2[i]:
+                diff[i] = f1[i]
+            else:
+                if is_child(f1[i], f2[i]):
+                    diff[i] = differ(f1[i], f2[i])
+                else:
+                    diff.update(to_diff(f2, i, f1[i]))
+        else:
+            diff.update(to_diff(f2, i, f1[i]))
+    for j in f2:
+        if j not in f1:
+            diff[(status['added'], j)] = f2[j]
     return diff
+
+
+def formatter(s):
+    diff = {}
+    for i in s:
+        if type(s[i]) is not dict:
+            diff[i] = s[i]
+        else:
+            for j in s[i]:
+                if type(s[i][j]) is dict:
+                    s[i][j] = indent(to_string(s[i][j]), '  ')
+                else:
+                    diff[i] = indent(to_string(s[i]), '   ')
+    return to_string(diff)
 
 
 def engine(file1, file2):
     f1 = parser(file1)
     f2 = parser(file2)
-    return diff_to_string(differ(f1, f2))
+    diff = formatter(differ(f1, f2))
+    return diff
