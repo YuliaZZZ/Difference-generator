@@ -26,7 +26,7 @@ def to_diff(f2, k, v):
     if k in f2:
         if f2[k] == v:
             diff[k] = v
-        if f2[k] != v:
+        else:
             diff[(status['delete'], k)] = v
             diff[(status['added'], k)] = f2[k]
     else:
@@ -36,11 +36,11 @@ def to_diff(f2, k, v):
 
 def differ(f1, f2):
     diff = {}
-    for i in f1:
-        if i in f2 and f1[i] != f2[i] and is_child(f1[i], f2[i]):
-            diff[i] = differ(f1[i], f2[i])
+    for key, value in f1.items():
+        if key in f2 and value != f2[key] and is_child(value, f2[key]):
+            diff[key] = differ(value, f2[key])
         else:
-            diff.update(to_diff(f2, i, f1[i]))
+            diff.update(to_diff(f2, key, value))
     for j in f2:
         if j not in f1:
             diff[(status['added'], j)] = f2[j]
@@ -50,14 +50,15 @@ def differ(f1, f2):
 def formatter(s):
     diff = {}
     for i in s:
-        if type(s[i]) is dict:
-            for j in s[i]:
-                if type(s[i][j]) is dict:
-                    s[i][j] = indent(to_string(s[i][j]), '  ')
-            else:
-                diff[i] = indent(to_string(s[i]), '   ')
-        else:
+        h = s[i]
+        if type(h) is not dict:
             diff[i] = s[i]
+        else:
+            for j in h:
+                if is_child(h, h[j]):
+                    h[j] = indent(to_string(h[j]), '  ')
+            else:
+                diff[i] = indent(to_string(h), '   ')
     return to_string(diff)
 
 
