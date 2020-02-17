@@ -56,8 +56,8 @@ def formatter(s):
         else:
             for j in h:
                 if is_child(h, h[j]):
-                    h[j] = formatter(h[j])
-            diff[i] = indent(to_string(h), '   ')
+                    h[j] = indent(formatter(h[j]), '  ')
+            diff[i] = to_string(h)
     return to_string(diff)
 
 
