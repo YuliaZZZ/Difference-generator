@@ -7,3 +7,5 @@
 <a href="https://asciinema.org/a/297865"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
 # Сравнение плоских файлов .yml
 <a href="https://asciinema.org/a/300219"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+# Сравнение вложенных структур файлов json и yml
+<a href="https://asciinema.org/a/302164"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
