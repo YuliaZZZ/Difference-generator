@@ -2,7 +2,7 @@ from gen_diff.parsers import parser
 from textwrap import indent
 
 
-status = {'no_change': "  ", 'delete': "- ", "added": "+ "}
+status = {'delete': "- ", "added": "+ "}
 
 
 def to_string(items):
@@ -23,9 +23,12 @@ def is_child(f1, f2):
 
 def to_diff(f2, k, v):
     diff = {}
-    if k in f2 and f2[k] != v:
-        diff[(status['delete'], k)] = v
-        diff[(status['added'], k)] = f2[k]
+    if k in f2:
+        if f2[k] == v:
+            diff[k] = v
+        if f2[k] != v:
+            diff[(status['delete'], k)] = v
+            diff[(status['added'], k)] = f2[k]
     else:
         diff[(status['delete'], k)] = v
     return diff
@@ -34,14 +37,8 @@ def to_diff(f2, k, v):
 def differ(f1, f2):
     diff = {}
     for i in f1:
-        if i in f2:
-            if f1[i] == f2[i]:
-                diff[i] = f1[i]
-            else:
-                if is_child(f1[i], f2[i]):
-                    diff[i] = differ(f1[i], f2[i])
-                else:
-                    diff.update(to_diff(f2, i, f1[i]))
+        if i in f2 and f1[i] != f2[i] and is_child(f1[i], f2[i]):
+            diff[i] = differ(f1[i], f2[i])
         else:
             diff.update(to_diff(f2, i, f1[i]))
     for j in f2:
@@ -53,14 +50,14 @@ def differ(f1, f2):
 def formatter(s):
     diff = {}
     for i in s:
-        if type(s[i]) is not dict:
-            diff[i] = s[i]
-        else:
+        if type(s[i]) is dict:
             for j in s[i]:
                 if type(s[i][j]) is dict:
                     s[i][j] = indent(to_string(s[i][j]), '  ')
-                else:
-                    diff[i] = indent(to_string(s[i]), '   ')
+            else:
+                diff[i] = indent(to_string(s[i]), '   ')
+        else:
+            diff[i] = s[i]
     return to_string(diff)
 
 
