@@ -3,17 +3,20 @@ delete = 'was removed'
 change = 'was changed. '
 
 
-def to_str(key, status):
-    st = 'Property "{}" {}.\n'.format(key, status)
-    return st
-
-
-def str_add(key, value, status):
-    znach = "'complex value'"
-    if type(value) is not dict:
-        znach = "'{}'".format(value)
-    status += znach
-    st = to_str(key, status)
+def to_str(znak, key, value):
+    status = delete
+    if znak == '- ':
+        value = ''
+    if znak == "+ " and type(value) is not dict:
+        status = added
+        value = "'{}'".format(value)
+    if znak == "+ " and type(value) is dict:
+        value = "'complex value'"
+        status = added
+    if znak == "c":
+        status = value
+        value = ''
+    st = "Property '{}' {}{}.\n".format(key, status, value)
     return st
 
 
@@ -22,26 +25,22 @@ def format_plain(s):
     for key in s:
         dop, znak, znach = key
         if dop == 'ch':
-            diff += changed(znach, s[key], change)
-        else:
-            if znak == '- ':
-                diff += to_str(znach, delete)
-            elif znak == "+ ":
-                diff += str_add(znach, s[key], added)
+            diff += changed(znach, s[key])
+        elif znak == '- ' or znak == "+ ":
+            diff += to_str(znak, znach, s[key])
     return diff
 
 
-def changed(key, value, status):
+def changed(key, value):
     f = j = diff = ''
     for i in value:
         dop, znak, znach = i
         znach = "{}.{}".format(key, znach)
-        if dop == "cna":
-            if znak == "- ":
-                j = "From '{}'".format(value[i])
-            elif znak == "+ ":
-                f = " to '{}'".format(value[i])
-            diff = to_str(znach, (change + j + f))
+        if dop == "cna" and znak == "- ":
+            j = 'From "{}"'.format(value[i])
+        if dop == "cna" and znak == "+ ":
+            f = ' to "{}"'.format(value[i])
+            diff = to_str("c", znach, (change + j + f))
         else:
             diff += format_plain({(dop, znak, znach): value[i]})
     return diff
