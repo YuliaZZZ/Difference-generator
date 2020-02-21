@@ -12,12 +12,12 @@ def to_diff(f2, k, v):
     diff = {}
     if k in f2:
         if f2[k] == v:
-            diff[("_", "  ", k)] = v
+            diff[("same", "  ", k)] = v
         else:
             diff[('from', status['delete'], k)] = v
             diff[('to', status['added'], k)] = f2[k]
     else:
-        diff[("_", status['delete'], k)] = v
+        diff[("or", status['delete'], k)] = v
     return diff
 
 
@@ -30,7 +30,7 @@ def differ(f1, f2):
             diff.update(to_diff(f2, key, value))
     for j in f2:
         if j not in f1:
-            diff[("_", status['added'], j)] = f2[j]
+            diff[("or", status['added'], j)] = f2[j]
     return diff
 
 

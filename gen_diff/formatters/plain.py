@@ -8,17 +8,15 @@ def to_str(znak, key, value):
     st = ''
     if znak == '- ':
         value = ''
-    if znak == "+ " and type(value) is not dict:
+    elif znak == "+ " and type(value) is not dict:
         status = added
         value = "'{}'".format(value)
-    if znak == "+ " and type(value) is dict:
+    elif znak == "+ " and type(value) is dict:
         value = "'complex value'"
         status = added
-    if znak == "*":
-        status = value
-        value = ''
-    if znak != '  ':
-        st = "Property '{}' {}{}.\n".format(key, status, value)
+    elif znak == "*":
+        status = change
+    st = "Property '{}' {}{}.\n".format(key, status, value)
     return st
 
 
@@ -27,13 +25,13 @@ def format_plain(s):
     for key in s:
         dop, znak, znach = key
         if dop == 'ch':
-            diff += changed(znach, s[key])
-        if dop == "from":
+            diff += format_plain(changed(znach, s[key]))
+        elif dop == "from":
             str_from = "From '{}'".format(s[key])
-        if dop == "to":
+        elif dop == "to":
             str_to = " to '{}'".format(s[key])
-            diff += to_str("*", znach, (change + str_from + str_to))
-        if dop == '_':
+            diff += to_str("*", znach, (str_from + str_to))
+        elif dop == 'or':
             diff += to_str(znak, znach, s[key])
     return diff
 
@@ -42,6 +40,6 @@ def changed(key, value):
     diff = {}
     for i in value:
         dop, znak, znach = i
-        znach = "{}.{}".format(key, znach)
+        znach = ".".join([key, znach])
         diff.update({(dop, znak, znach): value[i]})
-    return format_plain(diff)
+    return diff
