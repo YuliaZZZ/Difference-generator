@@ -27,10 +27,10 @@ def format_plain(s):
         if dop == 'ch':
             diff += format_plain(changed(znach, s[key]))
         elif dop == "from":
-            str_from = "From '{}'".format(s[key])
+            str_from = s[key]
         elif dop == "to":
-            str_to = " to '{}'".format(s[key])
-            diff += to_str("*", znach, (str_from + str_to))
+            str = "From '{}' to '{}'".format(str_from, s[key])
+            diff += to_str('*', znach, str)
         elif dop == 'or':
             diff += to_str(znak, znach, s[key])
     return diff
