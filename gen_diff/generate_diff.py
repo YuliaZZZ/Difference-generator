@@ -25,7 +25,7 @@ def differ(f1, f2):
     diff = {}
     for key, value in f1.items():
         if key in f2 and is_child(value, f2[key]):
-            diff[("ch", "", key)] = differ(value, f2[key])
+            diff[("ch", "  ", key)] = differ(value, f2[key])
         else:
             diff.update(to_diff(f2, key, value))
     for j in f2:

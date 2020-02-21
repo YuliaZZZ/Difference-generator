@@ -10,7 +10,7 @@ def to_str(znak, key, value):
         value = ''
     if znak == "+ " and type(value) is not dict:
         status = added
-        value = '"{}"'.format(value)
+        value = "'{}'".format(value)
     if znak == "+ " and type(value) is dict:
         value = "'complex value'"
         status = added
