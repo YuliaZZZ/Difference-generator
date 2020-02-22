@@ -28,8 +28,7 @@ def to_format(s):
         elif status == "from":
             str_from = s[key]
         elif status == "to":
-            string = "From '{}' to '{}'".format(str_from, s[key])
-            diff += to_str('*', znach, string)
+            diff += from_to(znach, str_from, s[key])
         elif status == 'removed' or status == 'added':
             diff += to_str(status, znach, s[key])
     return diff
@@ -42,3 +41,8 @@ def changed(key, value):
         znach = ".".join([key, znach])
         diff.update({(status, znak, znach): value[i]})
     return diff
+
+
+def from_to(znach, str_from, str_to):
+    string = "From '{}' to '{}'".format(str_from, str_to)
+    return to_str('*', znach, string)

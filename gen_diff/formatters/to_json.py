@@ -7,6 +7,8 @@ def to_format(s):
         status, znak, znach = i
         if status == 'changed':
             s[i] = to_format(s[i])
+    for i in s:
+        status, znak, znach = i
         if status == 'removed':
             diff[znach] = (status, )
         else:
