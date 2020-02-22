@@ -3,43 +3,42 @@ delete = 'was removed'
 change = 'was changed. '
 
 
-def to_str(znak, key, value):
-    status = delete
-    st = ''
-    if znak == '- ':
+def to_str(status, key, value):
+    description = delete
+    if status == 'removed':
         value = ''
-    elif znak == "+ " and type(value) is not dict:
-        status = added
+    elif status == "added" and type(value) is not dict:
+        description = added
         value = "'{}'".format(value)
-    elif znak == "+ " and type(value) is dict:
+    elif status == "added" and type(value) is dict:
         value = "'complex value'"
-        status = added
-    elif znak == "*":
-        status = change
-    st = "Property '{}' {}{}.\n".format(key, status, value)
+        description = added
+    elif status == "*":
+        description = change
+    st = "Property '{}' {}{}.\n".format(key, description, value)
     return st
 
 
-def format_plain(s):
-    diff = str_from = str_to = ''
+def to_format(s):
+    diff = str_from = ''
     for key in s:
-        dop, znak, znach = key
-        if dop == 'ch':
-            diff += format_plain(changed(znach, s[key]))
-        elif dop == "from":
+        status, znak, znach = key
+        if status == 'changed':
+            diff += to_format(changed(znach, s[key]))
+        elif status == "from":
             str_from = s[key]
-        elif dop == "to":
-            str = "From '{}' to '{}'".format(str_from, s[key])
-            diff += to_str('*', znach, str)
-        elif dop == 'or':
-            diff += to_str(znak, znach, s[key])
+        elif status == "to":
+            string = "From '{}' to '{}'".format(str_from, s[key])
+            diff += to_str('*', znach, string)
+        elif status == 'removed' or status == 'added':
+            diff += to_str(status, znach, s[key])
     return diff
 
 
 def changed(key, value):
     diff = {}
     for i in value:
-        dop, znak, znach = i
+        status, znak, znach = i
         znach = ".".join([key, znach])
-        diff.update({(dop, znak, znach): value[i]})
+        diff.update({(status, znak, znach): value[i]})
     return diff

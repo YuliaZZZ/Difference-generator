@@ -13,9 +13,9 @@ def to_string(items):
     return diff
 
 
-def formatter(s):
+def to_format(s):
     diff = s.copy()
     for i in s:
         if type(s[i]) is dict:
-            diff[i] = indent(formatter(s[i]), ' ')
+            diff[i] = indent(to_format(s[i]), ' ')
     return to_string(diff)
