@@ -6,8 +6,10 @@
 # Сравнение плоских файлов .json
 <a href="https://asciinema.org/a/297865"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
 # Сравнение плоских файлов .yml
-<a href="https://asciinema.org/a/300219"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+<a href="https://asciinema.org/a/303860"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
 # Сравнение рекурсивных структур файлов json и yml
-<a href="https://asciinema.org/a/302164"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+<a href="https://asciinema.org/a/303861"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
 # Текстовый формат вывода результата
-<a href="https://asciinema.org/a/303343"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+<a href="https://asciinema.org/a/303863"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+# Результат сравнения файлов в формате json
+<a href="https://asciinema.org/a/303866"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
