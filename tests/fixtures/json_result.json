@@ -1,1 +1,1 @@
-{"host": ["no change", "hexlet.io"], "timeout": ["to", 20], "proxy": ["removed"], "verbose": ["added", true]}
+{"host": ["no change", "hexlet.io"], "timeout": ["to", 20], "proxy": ["removed", []], "verbose": ["added", true]}

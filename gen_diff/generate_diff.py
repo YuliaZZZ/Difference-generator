@@ -9,12 +9,12 @@ def to_diff(f2, k, v):
     diff = {}
     if k in f2:
         if f2[k] == v:
-            diff[("no change", "  ", k)] = v
+            diff[("no change", " ", k)] = v
         else:
-            diff[('from', '- ', k)] = v
-            diff[('to', '+ ', k)] = f2[k]
+            diff[('from', '-', k)] = v
+            diff[('to', '+', k)] = f2[k]
     else:
-        diff[("removed", '- ', k)] = v
+        diff[("removed", '-', k)] = v
     return diff
 
 
@@ -22,12 +22,12 @@ def differ(f1, f2):
     diff = {}
     for key, value in f1.items():
         if key in f2 and is_child(value, f2[key]):
-            diff[("changed", "  ", key)] = differ(value, f2[key])
+            diff[("changed", " ", key)] = differ(value, f2[key])
         else:
             diff.update(to_diff(f2, key, value))
     for j in f2:
         if j not in f1:
-            diff[("added", "+ ", j)] = f2[j]
+            diff[("added", "+", j)] = f2[j]
     return diff
 
 
