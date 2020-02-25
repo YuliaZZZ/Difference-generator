@@ -12,4 +12,4 @@
 # Текстовый формат вывода результата
 <a href="https://asciinema.org/a/303863"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
 # Результат сравнения файлов в формате json
-<a href="https://asciinema.org/a/303866"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
+<a href="https://asciinema.org/a/304731"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
