@@ -1,3 +1,4 @@
+from gen_diff.generate_diff import get_status, get_key, label
 from textwrap import indent
 
 
@@ -7,8 +8,12 @@ def to_string(items):
         if type(key) is not tuple:
             diff += '   {}: {}\n'.format(key, value)
         else:
-            _, operator, parameter = key
-            diff += '{} {}: {}\n'.format(operator, parameter, value)
+            pair = {key: value}
+            diff += '{} {}: {}\n'.format(
+                                        label[get_status(pair)],
+                                        get_key(pair),
+                                        value
+                                        )
     diff = diff.join(['{\n', '}'])
     return diff
 

@@ -1,52 +1,46 @@
-added = 'was added with value: '
-delete = 'was removed'
-change = 'was changed'
+from gen_diff.generate_diff import get_value, get_status, get_key, make_pair
 
 
-def to_str(key, description, value):
-    if description == change:
-        st = "Property '{}' {}. From '{}' to '".format(key, description, value)
-    else:
-        st = "Property '{}' {}{}.\n".format(key, description, value)
+def to_str(pair):
+    end = ''
+    if get_status(pair) == 'removed':
+        end = '.\n'
+    if get_status(pair) == 'changed':
+        end = ". From '{}' to ".format(get_value(pair))
+    if get_status(pair) == 'added':
+        end = " with value: '{}'.\n".format(get_value(pair))
+    st = "Property '{}' was {}{}".format(get_key(pair), get_status(pair), end)
     return st
 
 
 def to_format(s):
     diff = ''
     for key in s:
-        status, _, znach = key
-        if status == 'changed':
-            diff += to_format(changed(znach, s[key]))
+        pair = {key: s[key]}
+        if get_status(pair) == 'child':
+            diff += to_format(stepper(pair))
         else:
-            diff += selection(key, s[key])
+            diff += selection(pair)
     return diff
 
 
-def changed(key, value):
+def stepper(pair):
+    s = get_value(pair)
     diff = {}
-    for i in value:
-        status, znak, znach = i
-        znach = ".".join([key, znach])
-        diff.update({(status, znak, znach): value[i]})
+    for i in s:
+        pairs = {i: s[i]}
+        new_i = ".".join([get_key(pair), get_key(pairs)])
+        diff.update(make_pair(get_status(pairs), new_i, s[i]))
     return diff
 
 
-def selection(key, value):
-    status, _, znach = key
-    description = delete
-    if status == 'removed':
-        value = ''
-    if status == "added" and type(value) is not dict:
-        description = added
-        value = "'{}'".format(value)
-    if status == "added" and type(value) is dict:
-        value = "'complex value'"
-        description = added
-    if status == "from":
-        description = change
-    if status == "to":
-        string = "{}'.\n".format(value)
+def selection(pair):
+    status = get_status(pair)
+    if status == 'added' and type(get_value(pair)) is dict:
+        pair = make_pair(status, get_key(pair), "complex value")
+    if status == 'to':
+        string = "'{}'.\n".format(get_value(pair))
         return string
-    if status == "no change":
+    elif status == 'no change':
         return ''
-    return to_str(znach, description, value)
+    return to_str(pair)

@@ -1,23 +1,21 @@
+from gen_diff.generate_diff import get_value, get_status, get_key
 import json
 
 
 def to_format(s):
-    s = change_diff(s)
+    s = to_json(s)
+    return json.dumps(s)
+
+
+def to_json(s):
     diff = {}
     for i in s:
-        status, _, znach = i
-        if status == 'changed':
-            diff[znach] = (status, to_format(s[i]))
-        else:
-            diff[znach] = (status, s[i])
-    return json.dumps(diff)
-
-
-def change_diff(s):
-    for i in s:
-        status, znak, znach = i
+        pair = {i: s[i]}
+        status = get_status(pair)
         if status == 'removed':
-            s[i] = []
-        if status == 'changed':
-            s[i] = change_diff(s[i])
-    return s
+            diff[get_key(pair)] = (status, [])
+        if status == 'child':
+            diff[get_key(pair)] = to_json(s[i])
+        elif status != 'removed' and status != 'child':
+            diff[get_key(pair)] = (get_status(pair), s[i])
+    return diff
