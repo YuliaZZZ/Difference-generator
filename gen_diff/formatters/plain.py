@@ -1,4 +1,4 @@
-from gen_diff.generate_diff import get_value, get_status, get_key, make_pair
+from gen_diff.generate_diff import make_pair
 
 
 def to_str(pair):

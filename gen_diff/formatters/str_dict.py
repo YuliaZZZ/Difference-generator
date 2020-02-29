@@ -1,20 +1,28 @@
-from gen_diff.generate_diff import get_status, get_key, label
+from gen_diff.constants import *
 from textwrap import indent
+
+
+LABEL = {SAVE: ' ',
+      REMOVE: '-',
+      ADD: '+',
+      CHILD: ' ',
+      FROM: '-',
+      TO: '+'}
 
 
 def to_string(items):
     diff = ''
     for key, value in items.items():
-        if type(key) is not tuple:
+        if not isinstance(key, tuple):
             diff += '   {}: {}\n'.format(key, value)
         else:
-            pair = {key: value}
+            status, top = key
             diff += '{} {}: {}\n'.format(
-                                        label[get_status(pair)],
-                                        get_key(pair),
+                                        LABEL[status],
+                                        top,
                                         value
                                         )
-    diff = diff.join(['{\n', '}'])
+    diff = '{}\n{}{}\n'.format('{', diff, '}')
     return diff
 
 

@@ -1,4 +1,3 @@
-from gen_diff.generate_diff import get_status, get_key
 import json
 
 
