@@ -1,20 +1,33 @@
 # -*- coding:utf-8 -*-
 import pytest
 import yaml
-from gen_diff import generate_diff, parsers
-from gen_diff.formatters import plain, str_dict, to_json
+from gen_diff import engine, parsers
+from gen_diff.formatters import json_view, str_view, text_view
 
 
-def  reader(file):
+def readed(file):
     with open(file, 'r') as input_file:
         answer = input_file.read()
     return answer
 
 
 def test_answer():
-    assert reader('./tests/fixtures/result.txt') == generate_diff.engine('./tests/fixtures/before.json', './tests/fixtures/after.json', str_dict.to_format)
-    assert yaml.safe_load(open('./tests/fixtures/before.yml')) == parsers.parser('./tests/fixtures/before.yml')
-    assert isinstance(generate_diff.engine('./tests/fixtures/before.yml', './tests/fixtures/after.yml', str_dict.to_format), str)
-    assert reader('./tests/fixtures/recursion_result.txt') == generate_diff.engine('./tests/fixtures/complex_before.json', './tests/fixtures/complex_after.json', str_dict.to_format)
-    assert reader('./tests/fixtures/text_result.txt') == generate_diff.engine('./tests/fixtures/complex_before.json', './tests/fixtures/complex_after.json', plain.to_format)
-    assert reader('tests/fixtures/json_result.json') == generate_diff.engine('./tests/fixtures/before.json', './tests/fixtures/after.json', to_json.to_format)
+    assert readed('./tests/fixtures/result.txt') == engine.generate_diff('./tests/fixtures/before.json',
+                                                                         './tests/fixtures/after.json',
+                                                                         str_view.make_format)
+    assert yaml.safe_load(open('./tests/fixtures/before.yml')) == parsers.parse('./tests/fixtures/before.yml')
+    assert isinstance(engine.generate_diff('./tests/fixtures/before.yml',
+                                           './tests/fixtures/after.yml',
+                                           str_view.make_format), str)
+    assert readed('./tests/fixtures/recursion_result.txt') == engine.generate_diff(
+                                                                                  './tests/fixtures/complex_before.json',
+                                                                                  './tests/fixtures/complex_after.json',
+                                                                                  str_view.make_format)
+    assert readed('./tests/fixtures/text_result.txt') == engine.generate_diff(
+                                                                             './tests/fixtures/complex_before.json',
+                                                                             './tests/fixtures/complex_after.json',
+                                                                             text_view.make_format)
+    assert readed('tests/fixtures/json_result.json') == engine.generate_diff(
+                                                                            './tests/fixtures/before.json',
+                                                                            './tests/fixtures/after.json',
+                                                                            json_view.make_format)

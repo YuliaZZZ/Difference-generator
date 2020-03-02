@@ -1,4 +1,4 @@
-from gen_diff.formatters import str_dict, plain, to_json    # noqa F401
+from gen_diff.formatters import str_view, json_view, text_view    # noqa F401
 
 
-__all__ = ('str_dict', 'plain', 'to_json')
+__all__ = ('str_view', 'text_view', 'json_view')

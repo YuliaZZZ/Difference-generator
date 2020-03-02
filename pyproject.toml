@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "YuliaZZZ_Difference_generator"
-version = "1.3.0"
+version = "1.4.0"
 description = "Generate differences"
 classifiers = ["Topic :: Utilities"]
 authors = ["Zula <zinowiewa@yandex.ru>"]

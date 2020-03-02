@@ -3,12 +3,12 @@ from os.path import split, splitext
 import yaml
 
 
-def parser(file):
+def parse(file):
     root, name_file = split(file)
     first_name, format = splitext(name_file)
-    parse = json.load(open(file))
+    parsed = json.load(open(file))
     if format == '.json':
-        return parse
+        return parsed
     elif format == '.yml':
-        parse = yaml.safe_load(open(file))
-        return parse
+        parsed = yaml.safe_load(open(file))
+        return parsed
