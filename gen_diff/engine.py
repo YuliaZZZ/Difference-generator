@@ -1,4 +1,4 @@
-from gen_diff.parsers import parse
+from gen_diff.parsers import parsed
 from gen_diff.constants import SAVE, ADD, REMOVE, TO, FROM, CHILD
 
 
@@ -42,8 +42,8 @@ def make_pair(status, key, value):
     return (status, key), value
 
 
-def generate_diff(file1, file2, visualize):
-    f1 = parse(file1)
-    f2 = parse(file2)
-    diff = visualize(compare(f1, f2))
+def generate_diff(file1, file2, vizual):
+    f1 = parsed(file1)
+    f2 = parsed(file2)
+    diff = vizual(compare(f1, f2))
     return diff

@@ -8,22 +8,22 @@ def to_string(i):
     (status, key), value = i
     if status == REMOVE:
         appendix = '.\n'
-    if status == FROM:
+    elif status == FROM:
         appendix = ". From '{}' to ".format(value)
-    if status == ADD:
+    elif status == TO:
+        string = "'{}'.\n".format(value)
+        return string
+    elif status == ADD:
         appendix = " with value: '{}'.\n".format(value)
     st = "Property '{}' was {}{}".format(key, status, appendix)
     return st
 
 
-def selecte(i):
+def select(i):
     (status, key), value = i
     if status == ADD and type(value) is dict:
         i = make_pair(status, key, 'complex value')
-    if status == TO:
-        string = "'{}'.\n".format(value)
-        return string
-    if status == SAVE:
+    elif status == SAVE:
         return ''
     return to_string(i)
 
@@ -36,7 +36,7 @@ def make_format(diff):
         if status == CHILD:
             str_diff += make_format(deepen(key, value))
         else:
-            str_diff += selecte(i)
+            str_diff += select(i)
     return str_diff
 
 

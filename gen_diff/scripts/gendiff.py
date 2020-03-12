@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from gen_diff.scripts import diff_output
+from gen_diff import diff_output
 
 
 def main():
