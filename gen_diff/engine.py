@@ -46,4 +46,5 @@ def generate_diff(file1, file2, vizual):
     f1 = parsed(file1)
     f2 = parsed(file2)
     diff = vizual(compare(f1, f2))
+    print(diff)
     return diff

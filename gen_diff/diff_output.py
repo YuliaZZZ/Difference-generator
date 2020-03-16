@@ -24,4 +24,3 @@ diff = engine.generate_diff(
      args.second_file,
      turn(args.format)
      )
-print(diff)
