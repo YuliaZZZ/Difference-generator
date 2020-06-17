@@ -20,4 +20,4 @@ test:
 
 
 
-.PHONY : help lint install test
+.PHONY : lint install test
