@@ -11,7 +11,7 @@ install: make
 before_install:
   - pip install poetry
   - pip install pytest
-  - pip install coverage
+  - pip install pytest-cov
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -23,4 +23,4 @@ script:
   - make lint
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT 
+  - ./cc-test-reporter after-build --prefix /home/yulia/example/python-project-lvl2 --exit-code $TRAVIS_TEST_RESULT 
