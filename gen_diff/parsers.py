@@ -10,7 +10,7 @@ def parsed(file):
         parsed = json.load(open(file))
     elif format == '.yml':
         parsed = yaml.safe_load(open(file))
-    else:
-        with open(file, 'r') as input_file:
-            parsed = input_file.read()
+    # else:
+    #    with open(file, 'r') as input_file:
+    #        parsed = input_file.read()
     return parsed
