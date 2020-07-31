@@ -10,11 +10,11 @@
 
 ## Json file comparison
 <a href="https://asciinema.org/a/297865"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
-## Сравнение плоских файлов формата yml
+## Сравнение файлов формата yml
 <a href="https://asciinema.org/a/303860"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
-## Сравнение рекурсивных структур файлов json и yml
+## Сравнение рекурсивных структур данных файлов типа json и yml
 <a href="https://asciinema.org/a/303861"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
-## Текстовый формат вывода результата
+## Текстовый формат результата сравнения файлов
 <a href="https://asciinema.org/a/303863"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
-## Результат сравнения файлов в формате json
+## json формат результата сравнения файлов
 <a href="https://asciinema.org/a/304731"><img src="https://asciinema.org/a/lZmJKg3TT3BWqohxSOYhMjJvH.png" width="336"/></a>
